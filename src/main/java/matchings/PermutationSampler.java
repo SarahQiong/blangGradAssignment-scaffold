@@ -1,5 +1,6 @@
 package matchings;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import blang.distributions.Generators;
 import blang.mcmc.ConnectedFactor;
 import blang.mcmc.SampledVariable;
 import blang.mcmc.Sampler;
+import blang.mcmc.internals.Callback;
 import briefj.collections.UnorderedPair;
 
 /**
@@ -30,7 +32,20 @@ public class PermutationSampler implements Sampler {
 
   @Override
   public void execute(Random rand) {
-    // Fill this. 
+      // Fill this.
+	  List<Integer> conBefore = permutation.getConnections();
+      final double logBefore = logDensity();
+      ArrayList<Integer> deepconBefore = new ArrayList<Integer>(conBefore);
+      permutation.sampleUniform(rand);
+      List<Integer> conAfter = permutation.getConnections();
+	  final double logAfter = logDensity();
+	  final double ratio = Math.exp(logAfter - logBefore);
+	  boolean u = Generators.bernoulli(rand, Math.min(1.0, ratio));
+	  if(!u) {
+		  for (int i = 0; i < deepconBefore.size(); i ++ ) {
+			  permutation.getConnections().set(i, deepconBefore.get(i));
+		  }
+	  }
   }
   
   private double logDensity() {
@@ -39,4 +54,7 @@ public class PermutationSampler implements Sampler {
       sum += f.logDensity();
     return sum;
   }
+  
+  public abstract void propose(Random random, Callback callback);
+
 }

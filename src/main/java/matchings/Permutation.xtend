@@ -25,5 +25,5 @@ import static java.util.Collections.shuffle
   def void sampleUniform(Random random) { 
     sort(connections) // sort first to make independent from the current config. 
     shuffle(connections, random)
-  }
+  }  
 }

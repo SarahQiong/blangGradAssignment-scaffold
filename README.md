@@ -64,6 +64,17 @@ Study how these object work. For example, you may want to try using ExhaustiveDe
 Summarize these algorithms with a description and pseudo-code. Explain why the kernels are tested separately for invariance but mixed together along with an identify matrix for testing irreducibility. 
 
 
+
+
+
+
+
+
+
+
+
+
+
 ### Submission
 
 To submit your code, we use a Continuous Integration framework which automatically runs test cases on the cloud. This seems a bit convoluted but this method teaches you a useful practice: *regression testing*. By running a suite of test cases automatically each time you commit code, you can get notified (by email) when you inadvertently break a piece of code that was formerly working (hence the term 'regression'). This is easy to setup nowadays:

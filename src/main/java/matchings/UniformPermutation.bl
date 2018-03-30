@@ -5,10 +5,10 @@ package matchings
  */
 model UniformPermutation {
   random Permutation permutation 
-  
+ 
   laws {
     logf(permutation) {
-      - logFactorial(permutation.componentSize)
+      -logFactorial(permutation.componentSize)
     }
   }
   generate(rand) {
