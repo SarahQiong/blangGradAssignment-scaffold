@@ -10,7 +10,6 @@ import blang.distributions.Generators;
 import blang.mcmc.ConnectedFactor;
 import blang.mcmc.SampledVariable;
 import blang.mcmc.Sampler;
-import blang.mcmc.internals.Callback;
 import briefj.collections.UnorderedPair;
 
 /**
@@ -37,7 +36,6 @@ public class PermutationSampler implements Sampler {
       final double logBefore = logDensity();
       ArrayList<Integer> deepconBefore = new ArrayList<Integer>(conBefore);
       permutation.sampleUniform(rand);
-      List<Integer> conAfter = permutation.getConnections();
 	  final double logAfter = logDensity();
 	  final double ratio = Math.exp(logAfter - logBefore);
 	  boolean u = Generators.bernoulli(rand, Math.min(1.0, ratio));
@@ -55,6 +53,4 @@ public class PermutationSampler implements Sampler {
     return sum;
   }
   
-  public abstract void propose(Random random, Callback callback);
-
 }
