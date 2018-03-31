@@ -1,5 +1,6 @@
 package matchings;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bayonet.distributions.Multinomial;
@@ -30,6 +31,19 @@ public class BipartiteMatchingSampler implements Sampler {
   @Override
   public void execute(Random rand) {
     // Fill this. 
+	  List<Integer> conBefore = matching.getConnections();
+      final double logBefore = logDensity();
+      ArrayList<Integer> deepconBefore = new ArrayList<Integer>(conBefore);
+      matching.sampleUniform(rand);
+	  final double logAfter = logDensity();
+	  final double ratio = Math.exp(logAfter - logBefore);
+	  boolean u = Generators.bernoulli(rand, Math.min(1.0, ratio));
+	  if(!u) {
+		  for (int i = 0; i < deepconBefore.size(); i ++ ) {
+			  matching.getConnections().set(i, deepconBefore.get(i));
+		  }
+	  }
+	  
   }
   
   private double logDensity() {
