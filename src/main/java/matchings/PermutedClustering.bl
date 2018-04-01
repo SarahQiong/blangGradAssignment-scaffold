@@ -32,13 +32,13 @@ model PermutedClustering {
     // likelihood:
     for (int obsIdx : 0 ..< nGroups) {
     	for (int Idx : 0 ..<groupSize){
-    		observations.get(obsIdx, Idx) | 
+    		observations.getRealVar(obsIdx, Idx) | 
     		means, variances,
-    		IntVar match = permutations.get(obsIdx).getConnections().get(Idx) 
+    		IntVar idx = permutations.get(obsIdx).getConnections().get(Idx) 
     		~ Normal(
-    			means.get(match),
-    			variances.get(match)
-    		)   		
+    			means.get(idx),
+    			variances.get(idx)
+    		)   
     	}
     }
   }
