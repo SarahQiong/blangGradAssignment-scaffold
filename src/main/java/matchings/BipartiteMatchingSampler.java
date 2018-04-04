@@ -34,7 +34,17 @@ public class BipartiteMatchingSampler implements Sampler {
 	  List<Integer> conBefore = matching.getConnections();
       final double logBefore = logDensity();
       ArrayList<Integer> deepconBefore = new ArrayList<Integer>(conBefore);
-      matching.sampleUniform(rand);
+      int idx = rand.nextInt(matching.componentSize());
+      ArrayList<Integer> Leftover = new ArrayList<Integer>();
+      for(int i=0; i<matching.getConnections().size(); i++) {
+    	  if(!matching.getConnections().contains(i)) {
+    		  Leftover.add(i);
+    	  }
+      }
+      Leftover.add(-1);
+      Leftover.add(conBefore.get(idx));
+      int idxleftover = rand.nextInt(Leftover.size());
+      matching.getConnections().set(idx, Leftover.get(idxleftover));  
 	  final double logAfter = logDensity();
 	  final double ratio = Math.exp(logAfter - logBefore);
 	  boolean u = Generators.bernoulli(rand, Math.min(1.0, ratio));

@@ -1,0 +1,4 @@
+scriptName: permuted-clustering.nf
+start: Sat Mar 31 17:16:33 PDT 2018
+runName: romantic_swirles
+nextflow.version: 0.28.0
