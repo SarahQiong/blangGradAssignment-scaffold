@@ -41,9 +41,11 @@ public class BipartiteMatchingSampler implements Sampler {
     		  Leftover.add(i);
     	  }
       }
-      Leftover.add(-1);
-      Leftover.add(conBefore.get(idx));
+      if(matching.getConnections().get(idx)!=-1) {
+    	  Leftover.add(-1);  
+      }
       int idxleftover = rand.nextInt(Leftover.size());
+      
       matching.getConnections().set(idx, Leftover.get(idxleftover));  
 	  final double logAfter = logDensity();
 	  final double ratio = Math.exp(logAfter - logBefore);
